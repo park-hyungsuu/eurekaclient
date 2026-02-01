@@ -1,5 +1,6 @@
 package com.hyungsuu.common.config;
 
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -51,6 +52,8 @@ import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 
+
+
 @Configuration
 public class SwaggerConfig {
 	@Bean
@@ -58,25 +61,16 @@ public class SwaggerConfig {
 		return new OpenAPI().components(new Components()).info(apiInfo());
 	}
 
-//    @Bean
-//    public GroupedOpenApi userApi() {
-//        return GroupedOpenApi.builder()
-////        		.group("user")
-////        		.
-//        		.packagesToScan("com.hyungsuu")
-//                .pathsToMatch("/**") // 특정 경로만 포함하려면 수정
-//                .build();
-//    }
-//    
+    @Bean
+    public GroupedOpenApi publicApi() {
+        return GroupedOpenApi.builder()
+                .group("hyungsuu-apis")
+                .displayName("hyungsuu-apis")
+                .packagesToScan("com.hyungsuu.apigate") // Explicitly scans this package
+                .build();
+    }
+	
 
-//    @Bean
-//    public GroupedOpenApi adminApi() {
-//        return GroupedOpenApi.builder()
-//        		.group("admin")
-//        		.packagesToScan("com.hyungsuu")
-//                .pathsToMatch("/**") // 특정 경로만 포함하려면 수정
-//                .build();
-//    }
 
 	private Info apiInfo() {
 		return new Info().title("Springdoc 테스트").description("Springdoc을 사용한 Swagger UI 테스트").version("1.0.0");
